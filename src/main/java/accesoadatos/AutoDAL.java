@@ -14,13 +14,13 @@ public class AutoDAL {
         ArrayList<Auto> lista = new ArrayList<>();
         Auto autos;
         try{
-            String sql = "SELECT Id, Codigo, Nombre, Apellido, Carrera FROM Estudiantes";
+            String sql = "SELECT Id, Placa, Marca, Modelo, Anio,Color, Propietario FROM Autos";
             Connection conexion = ComunDB.obtenerConexion();
             PreparedStatement ps = ComunDB.crearPreparedStatement(conexion, sql);
             ResultSet rs = ComunDB.obtenerResultSet(ps);
             while (rs.next()){
                 autos = new Auto(rs.getInt(1), rs.getString(2),
-                        rs.getString(3), rs.getString(4), rs.getString(5),rs.getString(6),rs.getString(7));
+                        rs.getString(3), rs.getString(4), rs.getInt(5),rs.getString(6),rs.getString(7));
                 lista.add(autos);
             }
             conexion.close();
@@ -36,14 +36,14 @@ public class AutoDAL {
     public static int guardar(Auto auto) throws SQLException{
         int result = 0;
         try {
-            String sql = "INSERT INTO Autos( Placa, Marca, Modelo,Color, Anio, Propietario) VALUES(?, ?, ?, ?,?)";
+            String sql = "INSERT INTO Autos( Placa, Marca, Modelo,Color, Anio, Propietario) VALUES(?, ?, ?, ?,?,?)";
             Connection conexion = ComunDB.obtenerConexion();
             PreparedStatement ps = ComunDB.crearPreparedStatement(conexion, sql);
             ps.setString(1, auto.getPlaca());
             ps.setString(2, auto.getMarca());
             ps.setString(3, auto.getModelo());
             ps.setString(4, auto.getColor());
-            ps.setString(5, auto.getAnio());
+            ps.setInt(5, auto.getAnio());
             ps.setString(6, auto.getPropietario());
             result = ps.executeUpdate();
             conexion.close();
@@ -55,26 +55,32 @@ public class AutoDAL {
         return result;
     }
     // método que permite modificar un registro existente
-    public static int modificar(Auto auto) throws SQLException{
+    public static int modificar(Auto auto) throws SQLException {
         int result = 0;
+        Connection conexion = null;
+        PreparedStatement ps = null;
         try {
-            String sql = "UPDATE Autos SET Placa = ?,  Marca = ?, Modelo = ?, Color = ?, Anio = ?, Propietario = ? WHERE Id = ?";
-            Connection conexion = ComunDB.obtenerConexion();
-            PreparedStatement ps = ComunDB.crearPreparedStatement(conexion, sql);
+            String sql = "UPDATE Autos SET Placa = ?, Marca = ?, Modelo = ?, anio = ?, Color = ?, Propietario = ? WHERE Id = ?";
+            conexion = ComunDB.obtenerConexion();
+            ps = ComunDB.crearPreparedStatement(conexion, sql);
             ps.setString(1, auto.getPlaca());
             ps.setString(2, auto.getMarca());
             ps.setString(3, auto.getModelo());
-            ps.setString(4, auto.getColor());
-            ps.setString(5, auto.getAnio());
+            ps.setInt(4, auto.getAnio());
+            ps.setString(5, auto.getColor());
             ps.setString(6, auto.getPropietario());
             ps.setInt(7, auto.getId());
 
             result = ps.executeUpdate();
-            conexion.close();
-            ps.close();
-        }
-        catch (Exception ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
         }
         return result;
     }
@@ -108,7 +114,7 @@ public class AutoDAL {
             ps.setInt(1, auto.getId());
             ResultSet rs = ComunDB.obtenerResultSet(ps);
             while (rs.next()){
-                est = new Auto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
+                est = new Auto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7));
                 lista.add(est);
             }
             connection.close();

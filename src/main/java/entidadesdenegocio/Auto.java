@@ -5,13 +5,13 @@ public class Auto {
     private String placa;
     private String marca;
     private String modelo;
-    private String anio;
+    private int anio;
     private String color;
     private String propietario;
 
     public Auto() {}
 
-    public Auto(int id, String placa, String marca, String modelo, String anio, String color, String propietario) {
+    public Auto(int id, String placa, String marca, String modelo, int anio, String color, String propietario) {
         this.id = id;
         this.placa = placa;
         this.marca = marca;
@@ -21,9 +21,7 @@ public class Auto {
         this.propietario = propietario;
     }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() {return id;}
 
     public void setId(int id) {
         this.id = id;
@@ -53,11 +51,11 @@ public class Auto {
         this.modelo = modelo;
     }
 
-    public String getAnio() {
+    public int getAnio() {
         return anio;
     }
 
-    public void setAnio(String anio) {
+    public void setAnio(int anio) {
         this.anio = anio;
     }
 

@@ -1,9 +1,10 @@
 package interfazgrafica;
 
 import javax.swing.*;
+import java.sql.SQLException;
 
-public class RegistroAutos {
-    private JPanel jPanel;
+public class RegistroAutos extends JFrame {
+    private JPanel jpPrincipal;
     private JTextField txtId;
     private JButton salirButton;
     private JButton registrarAutoButton;
@@ -24,7 +25,25 @@ public class RegistroAutos {
     private JRadioButton AnioRadioButton;
     private JRadioButton PropietarioRadioButton;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         new RegistroAutos();
     }
+
+    public RegistroAutos() throws SQLException {
+        inicializar();
+    }
+    void inicializar(){
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setSize(900, 700);
+        setTitle("Control de Estudiantes");
+        setLayout(null);
+        setLocationRelativeTo(null);
+        setResizable(false);
+
+
+
+        setContentPane(jpPrincipal);
+        setVisible(true);
+    }
+
 }

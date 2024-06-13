@@ -6,24 +6,23 @@ import java.sql.SQLException;
 public class RegistroAutos extends JFrame {
     private JPanel jpPrincipal;
     private JTextField txtId;
-    private JButton salirButton;
-    private JButton registrarAutoButton;
-    private JButton cancelarButton;
-    private JButton eliminarButton;
+    private JButton btnSalir;
+    private JButton btnAgregar;
+    private JButton btnCancelar;
+    private JButton btnEliminar;
     private JTextField txtBuscar;
-    private JRadioButton placaRadioButton;
-    private JButton BUSCARButton;
+    private JButton btnBuscar;
     private JTextField txtPlaca;
     private JTextField txtNombre;
     private JTextField txtModelo;
     private JTextField txtAnio;
     private JTextField txtColor;
     private JTextField txtPropietario;
-    private JButton EditarBtn;
-    private JRadioButton NombreRadioButton;
-    private JRadioButton ModeloRadioButton;
-    private JRadioButton AnioRadioButton;
-    private JRadioButton PropietarioRadioButton;
+    private JButton btnEditar;
+    private JButton btnGuardar;
+    private JRadioButton rbdId;
+    private JRadioButton rdbMarca;
+    private JRadioButton rdbColor;
 
     public static void main(String[] args) throws SQLException {
         new RegistroAutos();
